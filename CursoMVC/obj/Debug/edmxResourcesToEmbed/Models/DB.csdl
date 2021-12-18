@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CURSO_MVCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="CURSO_MVCEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="cstate" EntityType="CURSO_MVCModel.cstate" />
+    <EntitySet Name="user" EntityType="CURSO_MVCModel.user" />
+    <AssociationSet Name="FK_user_cstate" Association="CURSO_MVCModel.FK_user_cstate">
+      <End Role="cstate" EntitySet="cstate" />
+      <End Role="user" EntitySet="user" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="cstate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="user" Relationship="CURSO_MVCModel.FK_user_cstate" FromRole="cstate" ToRole="user" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="idState" Type="Int32" />
+    <NavigationProperty Name="cstate" Relationship="CURSO_MVCModel.FK_user_cstate" FromRole="user" ToRole="cstate" />
+  </EntityType>
+  <Association Name="FK_user_cstate">
+    <End Type="CURSO_MVCModel.cstate" Role="cstate" Multiplicity="0..1" />
+    <End Type="CURSO_MVCModel.user" Role="user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cstate">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="user">
+        <PropertyRef Name="idState" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

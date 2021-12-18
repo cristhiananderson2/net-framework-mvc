@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form id="form" style="padding-top:20px">
+            USUARIO:
+            <input type="text" name="user" value="" />
+            PASSWORD:
+            <input type="password" name="password" value="" />
+            <input type="submit" class="btn btn-success" value="Entrar" />
+        </form>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#form").submit(function (e) {
+                e.preventDefault();
+                const url = "@Url.Content("~/Access/Enter")";
+                const parametros = $(this).serialize();
+
+                $.post(url, parametros, function (data) {
+                    if (data == "1") document.location.href = "@Url.Content("~/")";
+                    else alert(data);
+                });
+            });
+        });
+    </script>    
+}
