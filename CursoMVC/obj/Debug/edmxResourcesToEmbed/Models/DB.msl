@@ -1,21 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="CURSO_MVCModelStoreContainer" CdmEntityContainer="CURSO_MVCEntities">
+  <EntityContainerMapping StorageEntityContainer="CURSO_MVCModelStoreContainer" CdmEntityContainer="cursomvc_Entities">
     <EntitySetMapping Name="cstate">
       <EntityTypeMapping TypeName="CURSO_MVCModel.cstate">
         <MappingFragment StoreEntitySet="cstate">
-          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="user">
       <EntityTypeMapping TypeName="CURSO_MVCModel.user">
         <MappingFragment StoreEntitySet="user">
-          <ScalarProperty Name="idState" ColumnName="idState" />
-          <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="idState" ColumnName="idState" />
+          <ScalarProperty Name="age" ColumnName="age" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

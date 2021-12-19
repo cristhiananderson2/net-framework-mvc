@@ -1,0 +1,29 @@
+﻿@model List<CursoMVC.Models.TableViewModels.UserTableViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>Usuarios</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>Email</th>
+                <th>Edad</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Email</td>
+                    <td>@item.Age</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

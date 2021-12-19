@@ -18,7 +18,7 @@ namespace CursoMVC.Controllers
         {
             try
             {
-                using (CURSO_MVCEntities db = new CURSO_MVCEntities()) 
+                using (cursomvc_Entities db = new cursomvc_Entities()) 
                 {
                     var lst = from d in db.user
                               where d.email == user && d.password == password && d.idState == 1

@@ -13,10 +13,10 @@ namespace CursoMVC.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CURSO_MVCEntities : DbContext
+    public partial class cursomvc_Entities : DbContext
     {
-        public CURSO_MVCEntities()
-            : base("name=CURSO_MVCEntities")
+        public cursomvc_Entities()
+            : base("name=cursomvc_Entities")
         {
         }
     

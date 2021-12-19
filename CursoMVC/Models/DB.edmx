@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CURSO_MVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CURSO_MVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="cstate">
           <Key>
             <PropertyRef Name="id" />
@@ -20,6 +20,7 @@
           <Property Name="email" Type="varchar" MaxLength="50" />
           <Property Name="password" Type="varchar" MaxLength="200" />
           <Property Name="idState" Type="int" />
+          <Property Name="age" Type="int" />
         </EntityType>
         <Association Name="FK_user_cstate">
           <End Role="cstate" Type="Self.cstate" Multiplicity="0..1" />
@@ -41,25 +42,18 @@
             <End Role="user" EntitySet="user" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CURSO_MVCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="CURSO_MVCEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="cstate" EntityType="CURSO_MVCModel.cstate" />
-          <EntitySet Name="user" EntityType="CURSO_MVCModel.user" />
-          <AssociationSet Name="FK_user_cstate" Association="CURSO_MVCModel.FK_user_cstate">
-            <End Role="cstate" EntitySet="cstate" />
-            <End Role="user" EntitySet="user" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="cstate">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="user" Relationship="CURSO_MVCModel.FK_user_cstate" FromRole="cstate" ToRole="user" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_cstate" FromRole="cstate" ToRole="user" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -69,11 +63,12 @@
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="idState" Type="Int32" />
-          <NavigationProperty Name="cstate" Relationship="CURSO_MVCModel.FK_user_cstate" FromRole="user" ToRole="cstate" />
+          <Property Name="age" Type="Int32" />
+          <NavigationProperty Name="cstate" Relationship="Self.FK_user_cstate" FromRole="user" ToRole="cstate" />
         </EntityType>
         <Association Name="FK_user_cstate">
-          <End Type="CURSO_MVCModel.cstate" Role="cstate" Multiplicity="0..1" />
-          <End Type="CURSO_MVCModel.user" Role="user" Multiplicity="*" />
+          <End Role="cstate" Type="Self.cstate" Multiplicity="0..1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="cstate">
               <PropertyRef Name="id" />
@@ -83,27 +78,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="cursomvc_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cstate" EntityType="Self.cstate" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <AssociationSet Name="FK_user_cstate" Association="Self.FK_user_cstate">
+            <End Role="cstate" EntitySet="cstate" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CURSO_MVCModelStoreContainer" CdmEntityContainer="CURSO_MVCEntities">
+        <EntityContainerMapping StorageEntityContainer="CURSO_MVCModelStoreContainer" CdmEntityContainer="cursomvc_Entities">
           <EntitySetMapping Name="cstate">
             <EntityTypeMapping TypeName="CURSO_MVCModel.cstate">
               <MappingFragment StoreEntitySet="cstate">
-                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="user">
             <EntityTypeMapping TypeName="CURSO_MVCModel.user">
               <MappingFragment StoreEntitySet="user">
-                <ScalarProperty Name="idState" ColumnName="idState" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="idState" ColumnName="idState" />
+                <ScalarProperty Name="age" ColumnName="age" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
